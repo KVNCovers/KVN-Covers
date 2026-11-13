@@ -1,5 +1,16 @@
 [
-{"id":"p1","name":"جراب سيليكون ناعم","price":150,"status":"in","img":""},
-{"id":"p2","name":"جراب شفاف مقوّى","price":120,"status":"in","img":""},
-{"id":"p3","name":"جراب جلد فاخر","price":250,"status":"soon","img":""}
+  {
+    "id": "p2",
+    "name": "جراب شفاف مقوّى",
+    "price": 120,
+    "status": "in",
+    "img": ""
+  },
+  {
+    "id": "p3",
+    "name": "جراب جلد فاخر",
+    "price": 250,
+    "status": "soon",
+    "img": ""
+  }
 ]

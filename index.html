@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KVN Covers | جرابات موبايل بستايل</title>
+<link rel="icon" href="logo.jpg">
+<meta property="og:title" content="KVN Covers"><meta property="og:description" content="Your style, our cover."><meta property="og:image" content="logo.jpg">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05060b;--bg2:#0b0e17;--card:#0d111b;--ink:#f1f5ff;--mut:#8f9ab3;--line:#1b2236;--g1:#1d6fff;--g2:#7fd4ff;--grad:linear-gradient(135deg,var(--g1),var(--g2));--ok:#16a34a;--warn:#d97706;--bad:#e11d48;--glass:rgba(8,11,20,.75);--sh:0 10px 40px -12px rgba(29,111,255,.55);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'Cairo',Tahoma,sans-serif;line-height:1.6;overflow-x:hidden}
+button,input,select{font-family:inherit;font-size:1rem;color:inherit}
+.lat{font-family:'Outfit','Cairo',sans-serif}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;margin:12px 4% 0;padding:10px 18px;border-radius:999px;background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;box-shadow:var(--sh)}
+.logo{font-weight:800;font-size:1.35rem;letter-spacing:.5px;display:flex;align-items:center;gap:8px}
+.logo img{width:38px;height:38px;border-radius:50%;object-fit:cover;border:1px solid var(--line)}.heroLogo{width:min(400px,86vw);border-radius:50%;box-shadow:0 0 90px -10px var(--g1);animation:fl 5s ease-in-out infinite}.view{background:#fff;color:#111;border:0;border-radius:999px;padding:8px 16px;font-weight:700;cursor:pointer}
+.logo span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{background:var(--grad);color:#fff;border:0;padding:11px 22px;border-radius:999px;cursor:pointer;font-weight:700;transition:.25s;box-shadow:0 6px 20px -8px var(--g1)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px -8px var(--g1)}
+.btn.o{background:transparent;color:var(--ink);border:1px solid var(--line);box-shadow:none}.btn.o:hover{border-color:var(--g1)}
+.btn.sm{padding:6px 13px;font-size:.82rem}.btn:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+.cnt{background:var(--bad);color:#fff;border-radius:999px;padding:0 7px;font-size:.75rem;margin-inline-start:6px}
+.hero{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:20px;align-items:center;padding:60px 6% 50px;max-width:1250px;margin:auto}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(90px);z-index:-1;opacity:.45}
+.hero:before{width:340px;height:340px;background:var(--g1);top:-40px;right:-60px}.hero:after{width:300px;height:300px;background:var(--g2);bottom:-60px;left:0}
+.pill{display:inline-block;padding:5px 16px;border:1px solid var(--line);border-radius:999px;background:var(--glass);font-size:.85rem;color:var(--mut);margin-bottom:14px}
+.hero h1{font-size:clamp(2.3rem,6vw,4.4rem);font-weight:900;line-height:1.15}
+.hero h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);margin:16px 0 26px;max-width:460px;font-size:1.05rem}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.mock{display:flex;justify-content:center;perspective:900px}
+.ph{width:210px;height:420px;border-radius:38px;background:var(--grad);padding:8px;transform:rotateY(-14deg) rotateX(6deg) rotate(6deg);box-shadow:0 40px 80px -20px var(--g1);animation:fl 5s ease-in-out infinite;position:relative}
+.ph:before{content:"";position:absolute;inset:8px;border-radius:30px;background:linear-gradient(160deg,rgba(255,255,255,.35),rgba(255,255,255,0) 50%,rgba(0,0,0,.25))}
+.ph b{position:absolute;top:22px;left:22px;width:70px;height:70px;border-radius:20px;background:rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.3)}
+.ph span{position:absolute;bottom:28px;width:100%;left:0;text-align:center;color:#fff;font-weight:800;letter-spacing:3px}
+@keyframes fl{50%{transform:translateY(-14px)}}
+.strip{overflow:hidden;border-block:1px solid var(--line);background:var(--bg2);padding:12px 0}
+.strip div{display:flex;gap:46px;width:max-content;animation:mq 22s linear infinite;color:var(--mut);font-weight:600}
+@keyframes mq{to{transform:translateX(50%)}}
+.sec{max-width:1250px;margin:auto;padding:56px 5% 20px}
+.sec h2{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:900}.sec .mut{color:var(--mut)}
+.admin{max-width:1250px;margin:20px auto 0;width:90%;border-radius:18px;padding:14px 20px;background:var(--grad);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.admin .btn{background:#fff;color:#111;box-shadow:none}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 6px;align-items:center}
+.chip{border:1px solid var(--line);background:var(--card);padding:7px 18px;border-radius:999px;cursor:pointer;font-weight:600;transition:.2s}
+.chip.on{background:var(--grad);color:#fff;border-color:transparent}
+.search{max-width:230px;margin-inline-start:auto;border-radius:999px!important}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px;max-width:1250px;margin:auto;padding:14px 5% 70px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;display:flex;flex-direction:column;transition:.3s;animation:up .5s both}
+.card:hover{transform:translateY(-6px);box-shadow:var(--sh);border-color:var(--g1)}
+@keyframes up{from{opacity:0;transform:translateY(20px)}}
+.img{aspect-ratio:1/1;background:linear-gradient(135deg,var(--bg2),var(--line));display:grid;place-items:center;font-size:4rem;position:relative;overflow:hidden}
+.img img{width:100%;height:100%;object-fit:cover;transition:.5s}.card:hover .img img{transform:scale(1.07)}
+.tag{position:absolute;top:12px;right:12px;padding:4px 13px;border-radius:999px;font-size:.78rem;font-weight:800;color:#fff;backdrop-filter:blur(6px)}
+.t-in{background:var(--ok)}.t-soon{background:var(--warn)}.t-out{background:var(--bad)}
+.info{padding:16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.name{font-weight:700}.price{font-weight:900;font-size:1.25rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.row{display:flex;gap:8px;margin-top:auto;padding-top:8px}.row .btn{flex:1;padding:10px 6px;white-space:nowrap}
+.own{border-top:1px dashed var(--line);margin-top:10px;padding-top:10px;display:flex;gap:6px;flex-wrap:wrap}
+select,input{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:100%;outline:0}
+input:focus,select:focus{border-color:var(--g1)}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;max-width:1250px;margin:auto;padding:0 5% 70px}
+.feat div{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px}.feat b{display:block;font-size:1.8rem}.feat p{color:var(--mut);font-size:.92rem}
+.ov{position:fixed;inset:0;background:rgba(5,4,12,.6);backdrop-filter:blur(4px);z-index:50;display:flex;justify-content:center;align-items:flex-end}
+.sheet{background:var(--card);width:100%;max-width:500px;max-height:92vh;overflow:auto;border-radius:28px 28px 0 0;padding:24px;display:flex;flex-direction:column;gap:12px;animation:up .35s both;border:1px solid var(--line)}
+@media(min-width:600px){.ov{align-items:center}.sheet{border-radius:28px}}
+.item{display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding:10px 0}
+.q{display:flex;align-items:center;gap:8px}.q button{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:none;cursor:pointer}
+.ticket{text-align:center;border:2px dashed var(--g1);border-radius:20px;padding:16px;background:var(--bg2)}
+.code{font-size:2.1rem;font-weight:800;letter-spacing:4px;direction:ltr;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mut{color:var(--mut)}.empty{text-align:center;color:var(--mut);padding:40px}
+footer{background:var(--bg2);border-top:1px solid var(--line);text-align:center;padding:44px 5% 60px;color:var(--mut)}
+footer .logo{justify-content:center;font-size:1.7rem;color:var(--ink);margin-bottom:8px}
+.wa{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:20px;z-index:40;width:56px;height:56px;border-radius:50%;background:#25d366;display:grid;place-items:center;font-size:1.7rem;box-shadow:0 10px 30px -8px #25d366;text-decoration:none}
+@media(max-width:760px){.hero{grid-template-columns:1fr;text-align:center;padding-top:36px}.hero p{margin-inline:auto}.ctas{justify-content:center}.ph{width:160px;height:320px}.search{max-width:100%;margin:0}}
+
+.logo img,.heroLogo{display:block}.heroLogo{width:min(400px,86vw);border-radius:50%;box-shadow:0 0 90px -10px var(--g1);animation:fl 5s ease-in-out infinite}@keyframes fl{50%{transform:translateY(-14px)}}</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const WA="201210899342";
+const ST={in:["متوفر","t-in"],soon:["قريبًا","t-soon"],out:["المخزون خلص","t-out"]};
+let products=[],cart={},modal=null,flt="all",q="",loaded=false;
+try{cart=JSON.parse(localStorage.getItem("cart")||"{}")}catch(e){}
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const saveCart=()=>{try{localStorage.setItem("cart",JSON.stringify(cart))}catch(e){}};
+const cartItems=()=>Object.entries(cart).map(([id,n])=>({p:products.find(x=>x.id===id),q:n})).filter(x=>x.p&&x.p.status==="in");
+const total=()=>cartItems().reduce((s,x)=>s+x.p.price*x.q,0);
+const count=()=>cartItems().reduce((s,x)=>s+x.q,0);
+fetch("products.json?t="+Date.now()).then(r=>r.json()).then(d=>{products=d;loaded=true;render()}).catch(()=>{loaded=true;render()});
+function render(){
+  const vis=products.filter(p=>(flt==="all"||p.status===flt)&&p.name.includes(q));
+  const list=vis.map((p,i)=>{const s=ST[p.status]||ST.in,can=p.status==="in";
+    return `<div class="card" style="animation-delay:${i*60}ms"><div class="img">${p.img?`<img src="${esc(p.img)}" alt="" loading="lazy">`:"📱"}<span class="tag ${s[1]}">${s[0]}</span></div>
+    <div class="info"><div class="name">${esc(p.name)}</div><div class="price">${p.price} ج.م</div>
+    <div class="row"><button class="btn o" ${can?"":"disabled"} onclick="add('${p.id}')">🛒 أضف للسلة</button><button class="btn" ${can?"":"disabled"} onclick="buyNow('${p.id}')">شراء</button></div></div></div>`}).join("");
+  const mq=["جودة عالية","شحن لكل المحافظات","تصاميم حصرية","حماية ضد الصدمات","KVN Covers"].map(t=>`<span>✦ ${t}</span>`).join("");
+  const keep=document.activeElement&&document.activeElement.id==="sq";
+  $("#app").innerHTML=`<div class="nav"><div class="logo lat"><img src="logo.jpg" alt="KVN"><span>KVN Covers</span></div><button class="btn" onclick="openCart()">🛒 السلة<span class="cnt">${count()}</span></button></div>
+  <section class="hero"><div><div class="pill">✨ كوليكشن جديد وصل</div><h1>غلّف موبايلك <em>بستايل</em> يشبهك</h1><p>جرابات أنيقة وقوية بخامات ممتازة. اختار جرابك، اطلب، وكمّل مع KVN Covers على واتساب.</p>
+  <div class="ctas"><a class="btn" style="text-decoration:none" href="#shop">تسوّق الآن</a><a class="btn o" style="text-decoration:none" href="https://wa.me/${WA}" target="_blank" rel="noopener">كلمنا واتساب</a></div></div>
+  <div class="mock"><img class="heroLogo" src="logo.jpg" alt="KVN Covers"></div></section>
+  <div class="strip"><div>${mq}${mq}${mq}${mq}</div></div>
+  <section class="sec" id="shop"><h2>الجرابات</h2><p class="mut">اختار اللي يعجبك وضيفه للسلة</p>
+  <div class="filters">${[["all","الكل"],["in","متوفر"],["soon","قريبًا"],["out","خلص"]].map(f=>`<button class="chip ${flt===f[0]?"on":""}" onclick="flt='${f[0]}';render()">${f[1]}</button>`).join("")}<input id="sq" class="search" placeholder="🔍 ابحث..." value="${esc(q)}" oninput="q=this.value;render()"></div></section>
+  <div class="grid">${list||`<div class="empty">${loaded?"مفيش جرابات هنا حاليًا":"جاري التحميل..."}</div>`}</div>
+  <div class="feat"><div><b>🚚</b><h3>توصيل سريع</h3><p>لحد باب البيت في كل المحافظات.</p></div><div><b>🛡️</b><h3>حماية قوية</h3><p>خامات مقاومة للصدمات والخدوش.</p></div><div><b>💬</b><h3>طلب سهل</h3><p>تختار، تاخد كود، وتكمل على واتساب.</p></div></div>
+  <footer><div class="logo lat"><img src="logo.jpg" alt="KVN"><span>KVN Covers</span></div><p>للطلب والاستفسار: <a href="https://wa.me/${WA}" style="color:inherit" dir="ltr">01210899342</a></p><p style="margin-top:6px">© 2026 KVN Covers</p></footer>
+  <a class="wa" href="https://wa.me/${WA}" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>${modal||""}`;
+  if(keep){const e=$("#sq");e.focus();e.setSelectionRange(q.length,q.length)}
+}
+function add(id){cart[id]=(cart[id]||0)+1;saveCart();openCart()}
+function buyNow(id){if(!cart[id])cart[id]=1;saveCart();openCart()}
+function chg(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];saveCart();openCart()}
+function close_(){modal=null;render()}
+function openCart(){const it=cartItems();
+  modal=`<div class="ov" onclick="if(event.target===this)close_()"><div class="sheet"><h2>🛒 سلة المشتريات</h2>
+  ${it.length?it.map(x=>`<div class="item"><div>${esc(x.p.name)}<div class="mut">${x.p.price} ج.م</div></div><div class="q"><button onclick="chg('${x.p.id}',1)">+</button><b>${x.q}</b><button onclick="chg('${x.p.id}',-1)">−</button></div></div>`).join("")+`<div class="item"><b>الإجمالي</b><b class="price">${total()} ج.م</b></div><input id="nm" placeholder="اسمك (اختياري)"><button class="btn" onclick="checkout()">إتمام الشراء</button>`:'<div class="empty">السلة فاضية</div>'}
+  <button class="btn o" onclick="close_()">إغلاق</button></div></div>`;render()}
+function checkout(){
+  const nm=($("#nm")||{}).value||"",it=cartItems();if(!it.length)return;
+  const code="KVN-"+Math.random().toString(36).slice(2,8).toUpperCase(),tot=total();
+  const msg=`مرحبًا KVN Covers، أنا ${nm||"عميل"}\nكود الطلب: ${code}\n`+it.map(x=>`• ${x.p.name} × ${x.q} = ${x.p.price*x.q} ج.م`).join("\n")+`\nالإجمالي: ${tot} ج.م`;
+  const url=`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+  cart={};saveCart();
+  modal=`<div class="ov"><div class="sheet"><h2>🎉 تم تسجيل طلبك</h2><p class="mut">ابعت الكود ده لينا على واتساب لتأكيد الطلب:</p><div class="ticket"><div class="code lat">${code}</div></div>
+  ${it.map(x=>`<div class="item"><span>${esc(x.p.name)} × ${x.q}</span><b>${x.p.price*x.q} ج.م</b></div>`).join("")}
+  <div class="item"><b>الإجمالي</b><b class="price">${tot} ج.م</b></div>
+  <a class="btn" style="text-align:center;text-decoration:none" href="${url}" target="_blank" rel="noopener">إرسال الطلب على واتساب</a><button class="btn o" onclick="close_()">تم</button></div></div>`;render()}
+render();
+
+</script>
+</body>
+</html>

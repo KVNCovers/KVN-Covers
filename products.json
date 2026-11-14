@@ -374,33 +374,5 @@
       ]
     }
   ],
-  "products": [
-    {
-      "id": "p1",
-      "name": "جراب سيليكون ناعم",
-      "price": 150,
-      "status": "in",
-      "img": "",
-      "brand": "iphone",
-      "model": "iPhone 15 Pro Max"
-    },
-    {
-      "id": "p2",
-      "name": "جراب شفاف مقوّى",
-      "price": 120,
-      "status": "in",
-      "img": "",
-      "brand": "samsung",
-      "model": "Galaxy S Series"
-    },
-    {
-      "id": "p3",
-      "name": "جراب جلد فاخر",
-      "price": 250,
-      "status": "soon",
-      "img": "",
-      "brand": "oppo",
-      "model": "Reno 14"
-    }
-  ]
+  "products": []
 }

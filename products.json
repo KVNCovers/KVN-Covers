@@ -201,7 +201,8 @@
         "Galaxy Note 8",
         "Galaxy S Series",
         "Galaxy A Series",
-        "Galaxy Z Fold"
+        "Galaxy Z Fold",
+        "Galaxy A08"
       ]
     },
     {
@@ -374,5 +375,33 @@
       ]
     }
   ],
-  "products": []
+  "products": [
+    {
+      "id": "p1794653240440",
+      "name": "جراب بورش",
+      "price": 100,
+      "status": "in",
+      "brand": "samsung",
+      "models": [
+        "Galaxy A56",
+        "Galaxy A37",
+        "Galaxy A36",
+        "Galaxy A27",
+        "Galaxy A26",
+        "Galaxy A24",
+        "Galaxy A23",
+        "Galaxy A20",
+        "Galaxy A17",
+        "Galaxy A16",
+        "Galaxy A15",
+        "Galaxy A14",
+        "Galaxy A13",
+        "Galaxy A07",
+        "Galaxy A06",
+        "Galaxy A04s",
+        "Galaxy A08"
+      ],
+      "img": "images/p1794653240440-1794653242396.jpg"
+    }
+  ]
 }

@@ -3,6 +3,6 @@ const CONFIG = {
   REPO: "kvncovers/kvn-covers",   // اسم حسابك/اسم المستودع على GitHub
   BRANCH: "main",
   WA: "201210899342",             // رقم الواتساب بالصيغة الدولية
-  ORDERS_URL: "",                 // الصق هنا رابط Google Apps Script بعد ما تعمله (شوف الشرح)
+  ORDERS_URL: "https://script.google.com/macros/s/AKfycbwgB6qpWOlC-szW6cbQzi-yxHspd8CQiP64CNwlaCMHIi7LAXc1tFnFhbq96FU5rik/exec",                 // الصق هنا رابط Google Apps Script بعد ما تعمله (شوف الشرح)
   INSTAPAY: ""                    // عنوان إنستا باي بتاعك لو عايز يظهر للعميل، مثلًا kvn@instapay
 };

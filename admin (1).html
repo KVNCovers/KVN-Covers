@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>لوحة الإدارة | KVN Covers</title>
+<link rel="icon" href="logo.jpg">
+<script src="config.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05060b;--bg2:#0b0e17;--card:#0d111b;--ink:#f1f5ff;--mut:#8f9ab3;--line:#1b2236;--g1:#1d6fff;--g2:#7fd4ff;--grad:linear-gradient(135deg,var(--g1),var(--g2));--ok:#22c55e;--warn:#f59e0b;--bad:#ef4444;color-scheme:dark;box-sizing:border-box}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'Cairo',Tahoma,sans-serif;line-height:1.55}
+button,input,select{font-family:inherit;font-size:.95rem;color:inherit}
+input,select{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;width:100%;outline:0}input:focus,select:focus{border-color:var(--g1)}
+.lat{font-family:'Outfit',sans-serif}.mut{color:var(--mut);font-size:.88rem}
+.btn{background:var(--grad);color:#fff;border:0;padding:10px 18px;border-radius:12px;cursor:pointer;font-weight:700;transition:.2s}.btn:hover{opacity:.88}.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.o{background:transparent;border:1px solid var(--line);color:var(--ink)}.btn.o:hover{border-color:var(--g1)}.btn.sm{padding:6px 12px;font-size:.82rem}.btn.g{background:var(--ok)}.btn.r{background:transparent;border:1px solid var(--bad);color:var(--bad)}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}.lbox{width:min(420px,100%);background:var(--card);border:1px solid var(--line);border-radius:24px;padding:30px;display:flex;flex-direction:column;gap:12px;text-align:center}.lbox img{width:90px;height:90px;border-radius:50%;margin:auto}
+.shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.side{background:var(--card);border-inline-end:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:10px;padding:6px 8px 18px;font-weight:800;font-size:1.15rem}.brand img{width:40px;height:40px;border-radius:50%}
+.nv{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:12px;background:none;border:0;cursor:pointer;color:var(--mut);font-weight:600;text-align:start;width:100%;transition:.2s}.nv:hover{background:var(--bg2);color:var(--ink)}.nv.on{background:var(--grad);color:#fff}.nv .bdg{margin-inline-start:auto}
+.bdg{background:var(--bad);color:#fff;border-radius:999px;min-width:22px;height:22px;display:inline-grid;place-items:center;font-size:.75rem;font-weight:800;padding:0 6px}.bdg:empty,.bdg[data-n="0"]{display:none}
+.sp{flex:1}
+main{padding:26px 30px 120px;max-width:1150px;width:100%}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:22px}.top h1{font-size:1.7rem;font-weight:900}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:22px}
+.st{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}.st b{display:block;font-size:1.9rem;font-weight:900}.st.hot{border-color:var(--g1);box-shadow:0 0 30px -10px var(--g1)}.st small{color:var(--mut)}
+.pn{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;margin-bottom:18px}.pn h3{margin-bottom:12px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tb{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 16px;cursor:pointer;font-weight:600}.tb.on{background:var(--grad);border-color:transparent;color:#fff}
+.b{display:inline-block;padding:2px 12px;border-radius:999px;font-size:.78rem;font-weight:800}.b-new{background:rgba(29,111,255,.2);color:#6aa6ff}.b-conf{background:rgba(245,158,11,.18);color:var(--warn)}.b-done{background:rgba(34,197,94,.18);color:var(--ok)}.b-can{background:rgba(143,154,179,.18);color:var(--mut)}
+.oc{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin-bottom:14px}.oc.isnew{border-color:var(--g1);box-shadow:0 0 30px -12px var(--g1)}
+.oh{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}.og{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:12px}
+.oi{background:var(--bg2);border-radius:14px;padding:10px 14px;margin-bottom:12px}.oi div{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.of{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.tot{font-size:1.25rem}.acts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.acts select{width:auto}
+.pulse{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--bad);animation:pl 1.2s infinite;margin-inline-start:6px}@keyframes pl{50%{opacity:.25;transform:scale(1.5)}}
+.tool{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.tool input{flex:1;min-width:160px}.tool select{width:auto}
+.pr{display:grid;grid-template-columns:60px 1fr auto;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;margin-bottom:10px}.pr .im{width:60px;height:60px;border-radius:12px;background:var(--bg2);object-fit:cover;display:grid;place-items:center;font-size:1.6rem}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.mc{display:inline-flex;gap:8px;align-items:center;background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:.88rem}.mc a{cursor:pointer;color:var(--bad);font-weight:800}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}.cat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);z-index:50;display:grid;place-items:center;padding:16px}.sheet{background:var(--card);border:1px solid var(--line);border-radius:24px;width:min(520px,100%);max-height:92vh;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:11px}
+.save{position:fixed;bottom:18px;inset-inline:0;margin:auto;width:min(560px,92vw);background:var(--card);border:1px solid var(--g1);border-radius:18px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;z-index:40;box-shadow:0 10px 40px -10px var(--g1)}
+.toast{position:fixed;top:18px;inset-inline:0;margin:auto;width:max-content;max-width:92vw;background:var(--card);border:1px solid var(--g1);border-radius:14px;padding:12px 20px;z-index:90;font-weight:700;box-shadow:0 10px 40px -10px var(--g1)}
+.empty{text-align:center;color:var(--mut);padding:36px}
+@media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:fixed;top:auto;bottom:0;inset-inline:0;height:auto;flex-direction:row;padding:8px;z-index:45;border-inline-end:0;border-top:1px solid var(--line);padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}.brand,.sp,.side .hm{display:none}.nv{flex-direction:column;gap:2px;padding:6px 4px;font-size:.72rem;text-align:center;justify-content:center;position:relative}.nv .bdg{position:absolute;top:0;inset-inline-end:6px;margin:0}main{padding:18px 14px 150px}.save{bottom:84px}.pr{grid-template-columns:52px 1fr}.pr .acts{grid-column:1/-1}}
+.mchk{display:flex;flex-wrap:wrap;gap:8px;max-height:260px;overflow:auto}.mk{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:.88rem}.mk input{width:auto}.chips{max-height:230px;overflow:auto}</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const C=CONFIG,API="https://api.github.com/repos/"+C.REPO+"/contents/",BR=C.BRANCH||"main",OU=C.ORDERS_URL||"";
+const ST={in:"متوفر",soon:"قريبًا",out:"المخزون خلص"};
+const OS={new:["جديد","b-new"],confirmed:["تم التأكيد","b-conf"],done:["تم التسليم","b-done"],cancelled:["ملغي","b-can"]};
+const PAY={cash:"💵 كاش عند الاستلام",instapay:"📲 إنستا باي"};
+const PRESET=[{"id":"iphone","name":"iPhone","models":["iPhone Duo","iPhone 18 Pro Max","iPhone 18 Pro","iPhone 17e","iPhone Air","iPhone 17 Pro Max","iPhone 17 Pro","iPhone 17","iPhone 16e","iPhone 16 Pro Max","iPhone 16 Pro","iPhone 16 Plus","iPhone 16","iPhone 15 Pro Max","iPhone 15 Pro","iPhone 15 Plus","iPhone 15","iPhone 14 Pro Max","iPhone 14 Pro","iPhone 14 Plus","iPhone 14","iPhone SE (2022)","iPhone 13 Pro Max","iPhone 13 Pro","iPhone 13","iPhone 13 mini","iPhone 12 Pro Max","iPhone 12 Pro","iPhone 12","iPhone 12 mini","iPhone SE (2020)","iPhone 11 Pro Max","iPhone 11 Pro","iPhone 11","iPhone XR","iPhone XS Max","iPhone XS","iPhone X","iPhone 8 Plus","iPhone 8","iPhone 7 Plus","iPhone 7","iPhone 6s Plus","iPhone 6s","iPhone 6 Plus","iPhone 6"]},{"id":"samsung","name":"Samsung","models":["Galaxy S26 Ultra","Galaxy S26+","Galaxy S26","Galaxy S26 FE","Galaxy S25 Edge","Galaxy S25 Ultra","Galaxy S25+","Galaxy S25","Galaxy S25 FE","Galaxy S24 Ultra","Galaxy S24+","Galaxy S24","Galaxy S24 FE","Galaxy S23 Ultra","Galaxy S23+","Galaxy S23","Galaxy S23 FE","Galaxy S22 Ultra","Galaxy S22+","Galaxy S22","Galaxy S21 Ultra","Galaxy S21+","Galaxy S21","Galaxy S21 FE","Galaxy S20 Ultra","Galaxy S20+","Galaxy S20","Galaxy S20 FE","Galaxy S10 5G","Galaxy S10+","Galaxy S10","Galaxy S10e","Galaxy S10 Lite","Galaxy S9+","Galaxy S9","Galaxy S8+","Galaxy S8","Galaxy Z Fold8 Ultra","Galaxy Z Fold8","Galaxy Z Flip8","Galaxy Z TriFold","Galaxy Z Flip7 FE","Galaxy Z Fold7","Galaxy Z Flip7","Galaxy Z Fold6","Galaxy Z Flip6","Galaxy Z Fold5","Galaxy Z Flip5","Galaxy Z Fold4","Galaxy Z Flip4","Galaxy Z Fold3","Galaxy Z Flip3","Galaxy Z Fold2","Galaxy Z Flip","Galaxy Fold","Galaxy A57","Galaxy A56","Galaxy A55","Galaxy A54","Galaxy A53","Galaxy A52s","Galaxy A52","Galaxy A51","Galaxy A50","Galaxy A37","Galaxy A36","Galaxy A35","Galaxy A34","Galaxy A33","Galaxy A32","Galaxy A31","Galaxy A30","Galaxy A27","Galaxy A26","Galaxy A25","Galaxy A24","Galaxy A23","Galaxy A22","Galaxy A21s","Galaxy A20","Galaxy A17","Galaxy A16","Galaxy A15","Galaxy A14","Galaxy A13","Galaxy A12","Galaxy A11","Galaxy A10","Galaxy A07","Galaxy A06","Galaxy A05s","Galaxy A05","Galaxy A04s","Galaxy A04e","Galaxy A04","Galaxy A03s","Galaxy A03 Core","Galaxy A03","Galaxy A02s","Galaxy A02","Galaxy A01","Galaxy A73","Galaxy A72","Galaxy A71","Galaxy A70","Galaxy A80","Galaxy A90 5G","Galaxy M57","Galaxy M56","Galaxy M55s","Galaxy M55","Galaxy M54","Galaxy M53","Galaxy M52","Galaxy M51","Galaxy M47","Galaxy M36","Galaxy M35","Galaxy M34","Galaxy M33","Galaxy M32","Galaxy M31","Galaxy M23","Galaxy M22","Galaxy M21","Galaxy M17","Galaxy M16","Galaxy M15","Galaxy M14","Galaxy M13","Galaxy M12","Galaxy M11","Galaxy M07","Galaxy M06","Galaxy M05","Galaxy M04","Galaxy Note 20 Ultra","Galaxy Note 20","Galaxy Note 10 Lite","Galaxy Note 10+","Galaxy Note 10","Galaxy Note 9","Galaxy Note 8"]},{"id":"oppo","name":"Oppo","models":["Find X9 Ultra","Find X9 Pro","Find X9","Find X8 Ultra","Find X8 Pro","Find X8","Find X7 Ultra","Find X7","Find X6 Pro","Find X6","Find X5 Pro","Find X5","Find X5 Lite","Find X3 Pro","Find X3 Neo","Find X3 Lite","Find X2 Pro","Find X2","Find N5","Find N3","Find N3 Flip","Find N2 Flip","Find N","Reno 16 F","Reno 15 Pro Max","Reno 15 Pro","Reno 15 Pro Mini","Reno 15","Reno 15 F","Reno 15 FS","Reno 14 Pro","Reno 14","Reno 14 F","Reno 14 FS","Reno 13 Pro","Reno 13","Reno 13 F","Reno 12 Pro","Reno 12","Reno 12 F","Reno 12 FS","Reno 11 Pro","Reno 11","Reno 11 F","Reno 10 Pro+","Reno 10 Pro","Reno 10","Reno 8 T","Reno 8 Pro","Reno 8","Reno 8 Z","Reno 8 Lite","Reno 7 Pro","Reno 7","Reno 7 Z","Reno 7 SE","Reno 7 Lite","Reno 6 Pro","Reno 6","Reno 6 Z","Reno 6 Lite","Reno 5 Pro","Reno 5","Reno 5 F","Reno 5 Z","Reno 5 Lite","Reno 4 Pro","Reno 4","Reno 4 F","Reno 4 SE","Reno 4 Lite","Reno 3 Pro","Reno 3","Reno 2 Z","Reno 2 F","Reno 2","Reno Z","Reno 10x Zoom","Reno","A6 Pro 5G","A6 Pro","A6x","A6c","A6s","A5 Pro 5G","A5 Pro","A5 5G","A5x","A5i Pro","A5i","A5","A3 Pro","A3x","A3","A98","A97","A96","A95","A94","A93","A92","A91","A83","A79","A78","A77","A76","A74","A73","A72","A71","A60","A59","A58","A57","A57s","A55","A54","A54s","A53","A53s","A52","A38","A36","A35","A33","A32","A31","A18","A17","A17k","A16","A16s","A16k","A15","A15s","A12","A11k","A9 2020","A9x","A8","A7","A7n","A5 2020","A5s","A3s","A1k","A1","F27 Pro+","F27","F25 Pro","F23","F21 Pro","F21s Pro","F19 Pro+","F19 Pro","F19","F17 Pro","F17","F15","F11 Pro","F11","F9"]}];
+const DEF=JSON.parse(JSON.stringify(PRESET));
+let tok="",okey="",products=[],cats=[],orders=[],sha="",view="dash",ready=false,dirty=false,pm=false,editing=null,pf=null,draft="",of="all",oq="",pq="",pc="all",ordersOk=null,lastNew=-1,timer=null;
+try{tok=localStorage.getItem("kvn_tok")||"";okey=localStorage.getItem("kvn_okey")||""}catch(e){}
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const b64=s=>{let b="";new TextEncoder().encode(s).forEach(c=>b+=String.fromCharCode(c));return btoa(b)};
+const gh=(p,o={})=>fetch(API+p,{...o,headers:{Authorization:"Bearer "+tok,Accept:"application/vnd.github+json","Content-Type":"application/json"}});
+const catOf=id=>cats.find(c=>c.id===id);
+const newCount=()=>orders.filter(o=>o.status==="new").length;
+function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),3500)}
+function beep(){try{const c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=880;g.gain.value=.15;o.start();setTimeout(()=>o.frequency.value=1175,150);setTimeout(()=>{o.stop();c.close()},330)}catch(e){}}
+function ago(d){const m=Math.floor((Date.now()-new Date(d))/60000);if(isNaN(m))return"";if(m<1)return"دلوقتي";if(m<60)return"من "+m+" دقيقة";const h=Math.floor(m/60);if(h<24)return"من "+h+" ساعة";return"من "+Math.floor(h/24)+" يوم"}
+/* ---------- تحميل ---------- */
+async function load(){
+  const r=await gh("products.json?ref="+BR);
+  if(!r.ok){ready=false;toast(r.status===401?"التوكن غلط أو منتهي":"مش قادر أوصل للمستودع ("+r.status+")، راجع config.js والصلاحيات");render();return false}
+  const j=await r.json();sha=j.sha;
+  const d=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(j.content.replace(/\n/g,"")),c=>c.charCodeAt(0))));
+  if(Array.isArray(d)){products=d;cats=JSON.parse(JSON.stringify(DEF))}else{products=d.products||[];cats=d.categories||[]}
+  dirty=false;ready=true;return true}
+async function loadOrders(){
+  if(!OU||!okey){ordersOk=null;return}
+  try{const r=await fetch(OU+"?key="+encodeURIComponent(okey)+"&t="+Date.now());const j=await r.json();
+    if(!j.ok){ordersOk=false;return}
+    ordersOk=true;orders=(j.orders||[]).sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+    const n=newCount();if(lastNew>=0&&n>lastNew){beep();toast("🔔 وصلك "+(n-lastNew)+" طلب جديد!");
+      try{if(Notification.permission==="granted")new Notification("KVN Covers",{body:"طلب جديد وصل 🛍️"})}catch(e){}}
+    lastNew=n}catch(e){ordersOk=false}
+  document.title=(newCount()?"("+newCount()+") ":"")+"لوحة الإدارة | KVN Covers";
+  if(!ready)return;
+  if(pm||(document.activeElement&&/INPUT|SELECT/.test(document.activeElement.tagName)))document.querySelectorAll(".bdg[data-o]").forEach(b=>{b.textContent=newCount();b.dataset.n=newCount()});else render()}
+async function login(){
+  tok=$("#tk").value.trim();okey=($("#ok")||{}).value||"";if(!tok)return;
+  const btn=$("#lb");btn.disabled=true;btn.textContent="جاري الدخول...";
+  if(await load()){try{localStorage.setItem("kvn_tok",tok);localStorage.setItem("kvn_okey",okey)}catch(e){}
+    await loadOrders();render();clearInterval(timer);timer=setInterval(loadOrders,20000)}else{btn.disabled=false;btn.textContent="دخول"}}
+function logout(){try{localStorage.removeItem("kvn_tok");localStorage.removeItem("kvn_okey")}catch(e){}tok="";okey="";ready=false;clearInterval(timer);render()}
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&ready)loadOrders()});
+/* ---------- طلبات ---------- */
+const opost=b=>fetch(OU,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({...b,key:okey})});
+async function setOS(code,s){const o=orders.find(x=>x.code===code);o.status=s;lastNew=newCount();render();try{await opost({action:"status",code,status:s})}catch(e){toast("فشل تحديث الطلب")}setTimeout(loadOrders,1800)}
+async function delOrder(code){if(!confirm("حذف الطلب نهائيًا؟"))return;orders=orders.filter(o=>o.code!==code);lastNew=newCount();render();try{await opost({action:"delete",code})}catch(e){}setTimeout(loadOrders,1800)}
+function waLink(o){const p="2"+String(o.phone).replace(/\D/g,"").replace(/^2/,"");const m=`أهلًا ${o.name}، معاك KVN Covers 👑\nبخصوص طلبك ${o.code} بإجمالي ${o.total} ج.م`;return `https://wa.me/${p}?text=${encodeURIComponent(m)}`}
+function orderCard(o){const s=OS[o.status]||OS.new;
+  return `<div class="oc ${o.status==="new"?"isnew":""}"><div class="oh"><div><b class="lat">${esc(o.code)}</b> <span class="b ${s[1]}">${s[0]}</span>${o.status==="new"?'<span class="pulse"></span>':""}</div><span class="mut">${ago(o.date)}</span></div>
+  <div class="og"><div><div class="mut">العميل</div><b>${esc(o.name)}</b></div><div><div class="mut">الموبايل</div><a href="tel:${esc(o.phone)}" style="color:var(--g2)" dir="ltr">${esc(o.phone)}</a></div><div><div class="mut">طريقة الدفع</div><b>${PAY[o.payment]||esc(o.payment)}</b></div></div>
+  <div class="oi">${(o.items||[]).map(i=>`<div><span>${esc(i.name)}${i.model?` <span class="mut">(${esc(i.model)})</span>`:""} × ${i.qty}</span><b>${i.price*i.qty} ج.م</b></div>`).join("")}</div>
+  <div class="of"><b class="tot">${o.total} ج.م</b><div class="acts">
+  ${o.status==="new"?`<button class="btn g sm" onclick="setOS('${o.code}','confirmed')">✅ تأكيد الطلب</button>`:""}
+  ${o.status==="confirmed"?`<button class="btn g sm" onclick="setOS('${o.code}','done')">📦 تم التسليم</button>`:""}
+  <a class="btn o sm" style="text-decoration:none" href="${waLink(o)}" target="_blank" rel="noopener">💬 واتساب العميل</a>
+  ${o.status==="new"||o.status==="confirmed"?`<button class="btn r sm" onclick="setOS('${o.code}','cancelled')">إلغاء</button>`:""}
+  <button class="btn o sm" onclick="delOrder('${o.code}')">🗑</button></div></div></div>`}
+function ordersHint(){return `<div class="pn"><h3>🔔 فعّل استقبال الطلبات</h3><p class="mut" style="margin-bottom:10px">${!OU?"لسه ما ربطتش Google Apps Script. حط الرابط في ملف config.js في خانة ORDERS_URL، وبعدها ادخل بكلمة سر الطلبات. شوف الشرح اللي بعتهولك.":ordersOk===false?"مش قادر أجيب الطلبات. راجع كلمة سر الطلبات (سجّل خروج وادخل تاني) ورابط ORDERS_URL.":"ادخل بكلمة سر الطلبات (سجّل خروج وادخل تاني)."}</p></div>`}
+/* ---------- المنتجات ---------- */
+function modelOpts(b,sel){const ms=(catOf(b)||{models:[]}).models;return `<option value="">اختار الموديل</option>`+ms.map(m=>`<option ${m===sel?"selected":""}>${esc(m)}</option>`).join("")+(sel&&!ms.includes(sel)?`<option selected>${esc(sel)}</option>`:"")}
+const pmod=p=>Array.isArray(p.models)&&p.models.length?p.models:(p.model?[p.model]:[]);
+function mchecks(b,sel){const ms=(catOf(b)||{models:[]}).models,all=[...ms,...sel.filter(m=>!ms.includes(m))];return all.map(m=>`<label class="mk"><input type="checkbox" value="${esc(m)}" ${sel.includes(m)?"checked":""}> ${esc(m)}</label>`).join("")||'<span class="mut">لا توجد موديلات في القسم ده، ضيف موديل جديد</span>'}
+function checkedModels(){return [...document.querySelectorAll("#fmg input:checked")].map(i=>i.value)}
+function openP(id){editing=id||null;const p=products.find(x=>x.id===id);pf=p?{...p,models:pmod(p)}:{name:"",price:"",status:"in",brand:(cats[0]||{}).id||"",models:[]};draft="";pm=true;render()}
+function closeP(){pm=false;render()}
+async function pick(el){if(el.files[0]){draft=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>{const i=new Image();i.onload=()=>{const k=Math.min(1,900/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=i.width*k;c.height=i.height*k;c.getContext("2d").drawImage(i,0,0,c.width,c.height);r(c.toDataURL("image/jpeg",.8))};i.src=fr.result};fr.readAsDataURL(el.files[0])});$("#pv").innerHTML=`<img src="${draft}" style="width:90px;height:90px;object-fit:cover;border-radius:12px">`}}
+function newModel(){const b=$("#fb").value,c=catOf(b);if(!c){toast("اختار قسم الأول");return}const ms=(prompt("اسم الموديل الجديد (ممكن أكتر من واحد بفاصلة)")||"").split(/[,،]/).map(x=>x.trim()).filter(Boolean);if(!ms.length)return;const sel=checkedModels();ms.forEach(m=>{if(!c.models.includes(m))c.models.push(m);if(!sel.includes(m))sel.push(m)});dirty=true;$("#fmg").innerHTML=mchecks(b,sel)}
+function saveP(){
+  const name=$("#fn").value.trim(),price=+$("#fp").value,status=$("#fs").value,brand=$("#fb").value,models=checkedModels();
+  if(!name||!price){toast("اكتب الاسم والسعر");return}if(!brand){toast("اختار القسم");return}if(!models.length){toast("اختار موديل واحد على الأقل");return}
+  if(editing){const p=products.find(x=>x.id===editing);Object.assign(p,{name,price,status,brand,models});delete p.model;if(draft)p.imgData=draft}
+  else products.unshift({id:"p"+Date.now(),name,price,status,brand,models,img:"",...(draft?{imgData:draft}:{})});
+  dirty=true;pm=false;render()}
+function setSt(id,v){products.find(p=>p.id===id).status=v;dirty=true;render()}
+function del(id){if(!confirm("حذف الجراب؟"))return;products=products.filter(p=>p.id!==id);dirty=true;render()}
+function pform(){const e=pf;return `<div class="ov"><div class="sheet"><h2>${editing?"تعديل جراب":"إضافة جراب جديد"}</h2>
+  <input id="fn" placeholder="اسم الجراب" value="${esc(e.name)}">
+  <select id="fb" onchange="$('#fmg').innerHTML=mchecks(this.value,[])">${cats.map(c=>`<option value="${c.id}" ${c.id===e.brand?"selected":""}>${esc(c.name)}</option>`).join("")||'<option value="">أضف قسم الأول</option>'}</select>
+  <div class="mut">الموديلات (اختار واحد أو أكتر)</div><div class="tool" style="margin:0"><input id="msearch" placeholder="🔍 ابحث عن موديل..." oninput="filterModels()"><button class="btn o sm" onclick="selModels(true)">تحديد المعروض</button><button class="btn o sm" onclick="selModels(false)">إلغاء المعروض</button></div><div id="fmg" class="mchk">${mchecks(e.brand,e.models||[])}</div><button class="btn o sm" onclick="newModel()">+ موديل جديد</button>
+  <input id="fp" type="number" placeholder="السعر بالجنيه" value="${e.price}">
+  <select id="fs">${Object.entries(ST).map(([k,v])=>`<option value="${k}" ${k===e.status?"selected":""}>${v}</option>`).join("")}</select>
+  <input type="file" accept="image/*" onchange="pick(this)"><div id="pv" class="mut">${e.img?`<img src="./${esc(e.img)}" style="width:90px;height:90px;object-fit:cover;border-radius:12px">`:e.imgData?`<img src="${e.imgData}" style="width:90px;height:90px;object-fit:cover;border-radius:12px">`:"بدون صورة"}</div>
+  <div class="acts"><button class="btn" onclick="saveP()">${editing?"تحديث":"إضافة"}</button><button class="btn o" onclick="closeP()">إلغاء</button></div></div></div>`}
+/* ---------- الأقسام ---------- */
+function importPreset(){let added=0;PRESET.forEach(p=>{let c=cats.find(x=>x.id===p.id||x.name.toLowerCase()===p.name.toLowerCase());if(!c){c={id:p.id,name:p.name,models:[]};cats.push(c)}const before=c.models.length;c.models=[...p.models,...c.models.filter(m=>!p.models.includes(m))];added+=c.models.length-before});dirty=true;toast("تم استيراد الموديلات ✅ ("+added+" موديل جديد) — لا تنسى تدوس حفظ ونشر");render()}
+function filterModels(){const q=$("#msearch").value.toLowerCase();document.querySelectorAll("#fmg .mk").forEach(l=>l.style.display=l.textContent.toLowerCase().includes(q)?"":"none")}
+function selModels(v){document.querySelectorAll("#fmg .mk").forEach(l=>{if(l.style.display!=="none")l.querySelector("input").checked=v})}
+function addModel(id){const c=catOf(id);$("#nm_"+id).value.split(/[,،\n]/).map(x=>x.trim()).filter(x=>x&&!c.models.includes(x)).forEach(x=>c.models.push(x));dirty=true;render()}
+function delModel(id,i){catOf(id).models.splice(i,1);dirty=true;render()}
+function addCat(){const n=$("#ncat").value.trim();if(!n)return;cats.push({id:"c"+Date.now(),name:n,models:[]});dirty=true;render()}
+function delCat(id){if(products.some(p=>p.brand===id)){toast("في منتجات تابعة للقسم ده، انقلها أو احذفها الأول");return}if(!confirm("حذف القسم؟"))return;cats=cats.filter(c=>c.id!==id);dirty=true;render()}
+/* ---------- حفظ ---------- */
+async function save(){
+  toast("جاري الحفظ...");
+  try{for(const p of products){if(p.imgData){const path="images/"+p.id+"-"+Date.now()+".jpg";const r=await gh(path,{method:"PUT",body:JSON.stringify({message:"add image",content:p.imgData.split(",")[1],branch:BR})});if(!r.ok)throw 0;p.img=path;delete p.imgData}}
+    const r=await gh("products.json",{method:"PUT",body:JSON.stringify({message:"update store",content:b64(JSON.stringify({categories:cats,products},null,2)),sha,branch:BR})});
+    if(!r.ok)throw 0;sha=(await r.json()).content.sha;dirty=false;toast("تم الحفظ ✅ هيظهر على الموقع بعد دقيقة تقريبًا");render()}catch(e){toast("فشل الحفظ. جرّب تاني أو راجع صلاحيات التوكن")}}
+async function discard(){if(!confirm("تجاهل كل التغييرات اللي مش محفوظة؟"))return;await load();render()}
+/* ---------- العرض ---------- */
+function go(v){view=v;pm=false;render();scrollTo(0,0)}
+function render(){
+  const ae=document.activeElement,aid=ae&&ae.id,pos=ae&&ae.selectionStart;
+  if(!ready){$("#app").innerHTML=`<div class="login"><div class="lbox"><img src="logo.jpg" alt=""><h2>لوحة إدارة KVN Covers</h2><p class="mut">سجّل دخولك لإدارة المتجر والطلبات</p>
+  <input id="tk" type="password" placeholder="GitHub Token (github_pat_...)" value="${esc(tok)}" autocomplete="off"><input id="ok" type="password" placeholder="كلمة سر الطلبات" value="${esc(okey)}" autocomplete="off">
+  <button class="btn" id="lb" onclick="login()">دخول</button><p class="mut">بياناتك بتتخزن في متصفحك إنت بس.</p></div></div>`;return}
+  const nn=newCount();
+  const nav=[["dash","📊","الرئيسية"],["orders","🛍️","الطلبات"],["products","📦","المنتجات"],["cats","🗂️","الأقسام"]].map(n=>`<button class="nv ${view===n[0]?"on":""}" onclick="go('${n[0]}')"><span>${n[1]}</span><span>${n[2]}</span>${n[0]==="orders"?`<span class="bdg" data-o="1" data-n="${nn}">${nn}</span>`:""}</button>`).join("");
+  let body="",title="";
+  if(view==="dash"){title="نظرة عامة";
+    const done=orders.filter(o=>o.status==="done"),pend=orders.filter(o=>o.status==="new"||o.status==="confirmed"),sum=a=>a.reduce((s,o)=>s+(+o.total||0),0);
+    body=`<div class="stats"><div class="st ${nn?"hot":""}"><small>طلبات جديدة</small><b>${nn}</b></div><div class="st"><small>إجمالي الطلبات</small><b>${orders.length}</b></div><div class="st"><small>مبيعات مكتملة</small><b>${sum(done)} <small>ج.م</small></b></div><div class="st"><small>طلبات منتظرة</small><b>${sum(pend)} <small>ج.م</small></b></div></div>
+    <div class="stats"><div class="st"><small>إجمالي المنتجات</small><b>${products.length}</b></div><div class="st"><small>متوفر</small><b style="color:var(--ok)">${products.filter(p=>p.status==="in").length}</b></div><div class="st"><small>قريبًا</small><b style="color:var(--warn)">${products.filter(p=>p.status==="soon").length}</b></div><div class="st"><small>المخزون خلص</small><b style="color:var(--bad)">${products.filter(p=>p.status==="out").length}</b></div></div>
+    ${ordersOk?`<div class="pn"><h3>آخر الطلبات</h3>${orders.slice(0,4).map(orderCard).join("")||'<div class="empty">لا توجد طلبات بعد</div>'}${orders.length>4?`<button class="btn o" onclick="go('orders')">عرض كل الطلبات</button>`:""}</div>`:ordersHint()}`}
+  if(view==="orders"){title="الطلبات";
+    const L=[["all","الكل"],["new","جديد"],["confirmed","تم التأكيد"],["done","تم التسليم"],["cancelled","ملغي"]];
+    const list=orders.filter(o=>(of==="all"||o.status===of)&&(o.name+o.phone+o.code).toLowerCase().includes(oq.toLowerCase()));
+    body=ordersOk?`<div class="tabs">${L.map(l=>`<button class="tb ${of===l[0]?"on":""}" onclick="of='${l[0]}';render()">${l[1]}${l[0]!=="all"?` (${orders.filter(o=>o.status===l[0]).length})`:""}</button>`).join("")}</div>
+    <div class="tool"><input id="oq" placeholder="🔍 ابحث بالاسم أو الموبايل أو الكود" value="${esc(oq)}" oninput="oq=this.value;render()"><button class="btn o" onclick="loadOrders();toast('تم التحديث')">🔄 تحديث</button><button class="btn o" onclick="Notification.requestPermission().then(p=>toast(p==='granted'?'تم تفعيل الإشعارات 🔔':'الإشعارات متقفلة'))">🔔 إشعارات المتصفح</button></div>
+    ${list.map(orderCard).join("")||'<div class="empty">لا توجد طلبات هنا</div>'}`:ordersHint()}
+  if(view==="products"){title="المنتجات";
+    const list=products.filter(p=>(pc==="all"||p.brand===pc)&&(p.name+pmod(p).join(" ")).toLowerCase().includes(pq.toLowerCase()));
+    body=`<div class="tool"><input id="pq" placeholder="🔍 ابحث في المنتجات" value="${esc(pq)}" oninput="pq=this.value;render()"><select onchange="pc=this.value;render()"><option value="all">كل الأقسام</option>${cats.map(c=>`<option value="${c.id}" ${pc===c.id?"selected":""}>${esc(c.name)}</option>`).join("")}</select><button class="btn" onclick="openP()">+ إضافة جراب</button></div>
+    ${list.map(p=>`<div class="pr">${p.img||p.imgData?`<img class="im" src="${p.imgData||"./"+p.img}" alt="">`:'<div class="im">📱</div>'}<div><b>${esc(p.name)}</b><div class="mut">${esc((catOf(p.brand)||{name:"بدون قسم"}).name)}${pmod(p).length?" • "+esc(pmod(p).join(" / ")):""} — ${p.price} ج.م</div></div>
+    <div class="acts"><select onchange="setSt('${p.id}',this.value)">${Object.entries(ST).map(([k,v])=>`<option value="${k}" ${k===p.status?"selected":""}>${v}</option>`).join("")}</select><button class="btn o sm" onclick="openP('${p.id}')">تعديل</button><button class="btn r sm" onclick="del('${p.id}')">حذف</button></div></div>`).join("")||'<div class="empty">لا توجد منتجات</div>'}`}
+  if(view==="cats"){title="الأقسام والموديلات";
+    body=`<div class="pn"><b>📥 الموديلات الجاهزة</b><p class="mut" style="margin:6px 0 10px">بيضيف لكل قسم كل موديلات iPhone وSamsung وOppo (حديثة وقديمة) من غير ما يمسح اللي عندك.</p><button class="btn" onclick="importPreset()">استيراد كل الموديلات</button></div><p class="mut" style="margin-bottom:14px">إنت اللي بتحدد كل قسم فيه أنهي موديلات. اكتب أكتر من موديل بفاصلة بينهم.</p><div class="cg">${cats.map(c=>`<div class="cat"><div style="display:flex;justify-content:space-between;align-items:center"><b>${esc(c.name)}</b><button class="btn r sm" onclick="delCat('${c.id}')">حذف القسم</button></div>
+    <div class="chips">${c.models.map((m,i)=>`<span class="mc">${esc(m)} <a onclick="delModel('${c.id}',${i})">×</a></span>`).join("")||'<span class="mut">لا توجد موديلات</span>'}</div>
+    <div class="acts"><input id="nm_${c.id}" placeholder="موديل جديد" style="flex:1"><button class="btn sm" onclick="addModel('${c.id}')">+ إضافة</button></div></div>`).join("")}
+    <div class="cat"><b>+ قسم جديد</b><div class="acts"><input id="ncat" placeholder="مثلًا Xiaomi" style="flex:1"><button class="btn sm" onclick="addCat()">إضافة</button></div></div></div>`}
+  $("#app").innerHTML=`<div class="shell"><aside class="side"><div class="brand"><img src="logo.jpg" alt=""><span class="lat">KVN Admin</span></div>${nav}<div class="sp"></div>
+  <a class="nv hm" style="text-decoration:none" href="index.html" target="_blank"><span>🌐</span><span>عرض الموقع</span></a><button class="nv hm" onclick="logout()"><span>🚪</span><span>خروج</span></button></aside>
+  <main><div class="top"><h1>${title}</h1><div class="acts"><a class="btn o sm" style="text-decoration:none" href="index.html" target="_blank">🌐 الموقع</a><button class="btn o sm" onclick="logout()">خروج</button></div></div>${body}</main></div>
+  ${dirty?`<div class="save"><span>⚠️ عندك تغييرات غير محفوظة</span><div class="acts"><button class="btn o sm" onclick="discard()">تجاهل</button><button class="btn sm" onclick="save()">💾 حفظ ونشر</button></div></div>`:""}${pm?pform():""}`;
+  if(aid&&!pm){const n=$("#"+aid);if(n&&n.tagName==="INPUT"){n.focus();try{n.setSelectionRange(pos,pos)}catch(e){}}}
+}
+(async()=>{if(tok&&await load()){await loadOrders();timer=setInterval(loadOrders,20000)}render()})();
+</script>
+</body>
+</html>

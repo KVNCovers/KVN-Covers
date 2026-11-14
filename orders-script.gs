@@ -1,6 +1,6 @@
 // ===== Google Apps Script: استقبال الطلبات =====
 // غيّر الباسورد ده لحاجة سرية بتاعتك، وهتدخل بيه على صفحة الطلبات في لوحة الإدارة
-const KEY = "غيّر-الباسورد-ده";
+const KEY = "knvtalabat";
 const SHEET = "Orders";
 
 function sh_() {

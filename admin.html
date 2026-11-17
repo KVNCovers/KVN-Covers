@@ -45,7 +45,7 @@ main{padding:26px 30px 120px;max-width:1150px;width:100%}
 .toast{position:fixed;top:18px;inset-inline:0;margin:auto;width:max-content;max-width:92vw;background:var(--card);border:1px solid var(--g1);border-radius:14px;padding:12px 20px;z-index:90;font-weight:700;box-shadow:0 10px 40px -10px var(--g1)}
 .empty{text-align:center;color:var(--mut);padding:36px}
 @media(max-width:860px){.shell{grid-template-columns:1fr}.side{position:fixed;top:auto;bottom:0;inset-inline:0;height:auto;flex-direction:row;padding:8px;z-index:45;border-inline-end:0;border-top:1px solid var(--line);padding-bottom:calc(8px + env(safe-area-inset-bottom,0px))}.brand,.sp,.side .hm{display:none}.nv{flex-direction:column;gap:2px;padding:6px 4px;font-size:.72rem;text-align:center;justify-content:center;position:relative}.nv .bdg{position:absolute;top:0;inset-inline-end:6px;margin:0}main{padding:18px 14px 150px}.save{bottom:84px}.pr{grid-template-columns:52px 1fr}.pr .acts{grid-column:1/-1}}
-.mchk{display:flex;flex-wrap:wrap;gap:8px;max-height:260px;overflow:auto}.mk{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:.88rem}.mk input{width:auto}.chips{max-height:230px;overflow:auto}</style>
+.mchk{display:flex;flex-wrap:wrap;gap:8px;max-height:260px;overflow:auto}.mk{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer;font-size:.88rem}.mk input{width:auto}.chips{max-height:230px;overflow:auto}.gh{width:100%;font-weight:800;color:var(--g2);margin-top:6px}</style>
 </head>
 <body>
 <div id="app"></div>
@@ -63,6 +63,10 @@ const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",
 const b64=s=>{let b="";new TextEncoder().encode(s).forEach(c=>b+=String.fromCharCode(c));return btoa(b)};
 const gh=(p,o={})=>fetch(API+p,{...o,headers:{Authorization:"Bearer "+tok,Accept:"application/vnd.github+json","Content-Type":"application/json"}});
 const catOf=id=>cats.find(c=>c.id===id);
+const CODE_AL="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+function deriveCode(id){let h=7;for(const c of String(id))h=(h*31+c.charCodeAt(0))>>>0;let o="";for(let i=0;i<5;i++){h=(Math.imul(h,1103515245)+12345)>>>0;o+=CODE_AL[(h>>>16)&31]}return "KV-"+o}
+function newCode(){let c;do{c="KV-";for(let i=0;i<5;i++)c+=CODE_AL[Math.random()*32|0]}while(products.some(p=>p.code===c));return c}
+
 const newCount=()=>orders.filter(o=>o.status==="new").length;
 function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),3500)}
 function beep(){try{const c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=880;g.gain.value=.15;o.start();setTimeout(()=>o.frequency.value=1175,150);setTimeout(()=>{o.stop();c.close()},330)}catch(e){}}
@@ -74,7 +78,7 @@ async function load(){
   const j=await r.json();sha=j.sha;
   const d=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(j.content.replace(/\n/g,"")),c=>c.charCodeAt(0))));
   if(Array.isArray(d)){products=d;cats=JSON.parse(JSON.stringify(DEF))}else{products=d.products||[];cats=d.categories||[]}
-  dirty=false;ready=true;return true}
+  products.forEach(p=>{if(!p.code)p.code=deriveCode(p.id)});dirty=false;ready=true;return true}
 async function loadOrders(){
   if(!OU||!okey){ordersOk=null;return}
   try{const r=await fetch(OU+"?key="+encodeURIComponent(okey)+"&t="+Date.now());const j=await r.json();
@@ -112,28 +116,36 @@ function ordersHint(){return `<div class="pn"><h3>🔔 فعّل استقبال �
 /* ---------- المنتجات ---------- */
 function modelOpts(b,sel){const ms=(catOf(b)||{models:[]}).models;return `<option value="">اختار الموديل</option>`+ms.map(m=>`<option ${m===sel?"selected":""}>${esc(m)}</option>`).join("")+(sel&&!ms.includes(sel)?`<option selected>${esc(sel)}</option>`:"")}
 const pmod=p=>Array.isArray(p.models)&&p.models.length?p.models:(p.model?[p.model]:[]);
-function mchecks(b,sel){const ms=(catOf(b)||{models:[]}).models,all=[...ms,...sel.filter(m=>!ms.includes(m))];return all.map(m=>`<label class="mk"><input type="checkbox" value="${esc(m)}" ${sel.includes(m)?"checked":""}> ${esc(m)}</label>`).join("")||'<span class="mut">لا توجد موديلات في القسم ده، ضيف موديل جديد</span>'}
+const pbr=p=>Array.isArray(p.brands)&&p.brands.length?p.brands:(p.brand?[p.brand]:[]);
+const mk=(m,sel)=>`<label class="mk"><input type="checkbox" value="${esc(m)}" ${sel.includes(m)?"checked":""}> ${esc(m)}</label>`;
+function mchecks(bs,sel){let h="";const used=new Set();bs.forEach(b=>{const c=catOf(b);if(!c)return;h+=`<div class="gh">${esc(c.name)}</div>`+c.models.map(m=>{used.add(m);return mk(m,sel)}).join("")});sel.filter(m=>!used.has(m)).forEach(m=>h+=mk(m,sel));return h||'<span class="mut">اختار قسم الأول، أو ضيف موديل جديد</span>'}
+function checkedBrands(){return [...document.querySelectorAll("#fbg input:checked")].map(i=>i.value)}
+function catsChanged(){$("#fmg").innerHTML=mchecks(checkedBrands(),checkedModels())}
 function checkedModels(){return [...document.querySelectorAll("#fmg input:checked")].map(i=>i.value)}
-function openP(id){editing=id||null;const p=products.find(x=>x.id===id);pf=p?{...p,models:pmod(p)}:{name:"",price:"",status:"in",brand:(cats[0]||{}).id||"",models:[]};draft="";pm=true;render()}
+function openP(id){editing=id||null;const p=products.find(x=>x.id===id);pf=p?{...p,models:pmod(p),brands:pbr(p)}:{name:"",price:"",status:"in",brands:[(cats[0]||{}).id].filter(Boolean),models:[]};draft="";pm=true;render()}
 function closeP(){pm=false;render()}
 async function pick(el){if(el.files[0]){draft=await new Promise(r=>{const fr=new FileReader();fr.onload=()=>{const i=new Image();i.onload=()=>{const k=Math.min(1,900/Math.max(i.width,i.height)),c=document.createElement("canvas");c.width=i.width*k;c.height=i.height*k;c.getContext("2d").drawImage(i,0,0,c.width,c.height);r(c.toDataURL("image/jpeg",.8))};i.src=fr.result};fr.readAsDataURL(el.files[0])});$("#pv").innerHTML=`<img src="${draft}" style="width:90px;height:90px;object-fit:cover;border-radius:12px">`}}
-function newModel(){const b=$("#fb").value,c=catOf(b);if(!c){toast("اختار قسم الأول");return}const ms=(prompt("اسم الموديل الجديد (ممكن أكتر من واحد بفاصلة)")||"").split(/[,،]/).map(x=>x.trim()).filter(Boolean);if(!ms.length)return;const sel=checkedModels();ms.forEach(m=>{if(!c.models.includes(m))c.models.push(m);if(!sel.includes(m))sel.push(m)});dirty=true;$("#fmg").innerHTML=mchecks(b,sel)}
-function saveP(){
-  const name=$("#fn").value.trim(),price=+$("#fp").value,status=$("#fs").value,brand=$("#fb").value,models=checkedModels();
-  if(!name||!price){toast("اكتب الاسم والسعر");return}if(!brand){toast("اختار القسم");return}if(!models.length){toast("اختار موديل واحد على الأقل");return}
-  if(editing){const p=products.find(x=>x.id===editing);Object.assign(p,{name,price,status,brand,models});delete p.model;if(draft)p.imgData=draft}
-  else products.unshift({id:"p"+Date.now(),name,price,status,brand,models,img:"",...(draft?{imgData:draft}:{})});
-  dirty=true;pm=false;render()}
+function newModel(){const b=checkedBrands()[0],c=catOf(b);if(!c){toast("اختار قسم الأول");return}const ms=(prompt("اسم الموديل الجديد لقسم "+c.name+" (ممكن أكتر من واحد بفاصلة)")||"").split(/[,،]/).map(x=>x.trim()).filter(Boolean);if(!ms.length)return;const sel=checkedModels();ms.forEach(m=>{if(!c.models.includes(m))c.models.push(m);if(!sel.includes(m))sel.push(m)});dirty=true;$("#fmg").innerHTML=mchecks(checkedBrands(),sel)}
+function saveP(again){
+  const name=$("#fn").value.trim(),price=+$("#fp").value||0,status=$("#fs").value,brands=checkedBrands(),models=checkedModels();
+  if(!name){toast("اكتب اسم الجراب");return}if(!brands.length){toast("اختار قسم واحد على الأقل");return}if(!models.length){toast("اختار موديل واحد على الأقل");return}
+  if(editing){const p=products.find(x=>x.id===editing);Object.assign(p,{name,price,status,brands,models});delete p.model;delete p.brand;if(draft)p.imgData=draft}
+  else products.unshift({id:"p"+Date.now(),code:newCode(),name,price,status,brands,models,img:"",...(draft?{imgData:draft}:{})});
+  dirty=true;
+  if(again===true){pf={name:"",price,status,brands,models};editing=null;draft="";pm=true;toast("تمت الإضافة ✅ كمّل الجراب اللي بعده (نفس الأجهزة)");render();return}
+  pm=false;render()}
+function dupP(id){const p=products.find(x=>x.id===id);if(!p)return;editing=null;pf={name:"",price:p.price,status:p.status,brands:pbr(p),models:pmod(p)};draft="";pm=true;toast("نسخة من: "+p.name+" — اكتب الاسم الجديد وارفع الصورة");render()}
+function copyDevices(id){const p=products.find(x=>x.id===id);if(!p)return;const bs=pbr(p),ms=pmod(p);document.querySelectorAll("#fbg input").forEach(i=>i.checked=bs.includes(i.value));$("#fmg").innerHTML=mchecks(bs,ms);toast("تم نسخ الأقسام والموديلات من: "+p.name)}
 function setSt(id,v){products.find(p=>p.id===id).status=v;dirty=true;render()}
 function del(id){if(!confirm("حذف الجراب؟"))return;products=products.filter(p=>p.id!==id);dirty=true;render()}
-function pform(){const e=pf;return `<div class="ov"><div class="sheet"><h2>${editing?"تعديل جراب":"إضافة جراب جديد"}</h2>
+function pform(){const e=pf;return `<div class="ov"><div class="sheet"><h2>${editing?"تعديل جراب":"إضافة جراب جديد"}</h2>${products.filter(p=>p.id!==editing).length?`<select id="cp" onchange="copyDevices(this.value);this.value=''"><option value="">📋 انسخ الأقسام والموديلات من جراب تاني...</option>${products.filter(p=>p.id!==editing).map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join("")}</select>`:""}
   <input id="fn" placeholder="اسم الجراب" value="${esc(e.name)}">
-  <select id="fb" onchange="$('#fmg').innerHTML=mchecks(this.value,[])">${cats.map(c=>`<option value="${c.id}" ${c.id===e.brand?"selected":""}>${esc(c.name)}</option>`).join("")||'<option value="">أضف قسم الأول</option>'}</select>
-  <div class="mut">الموديلات (اختار واحد أو أكتر)</div><div class="tool" style="margin:0"><input id="msearch" placeholder="🔍 ابحث عن موديل..." oninput="filterModels()"><button class="btn o sm" onclick="selModels(true)">تحديد المعروض</button><button class="btn o sm" onclick="selModels(false)">إلغاء المعروض</button></div><div id="fmg" class="mchk">${mchecks(e.brand,e.models||[])}</div><button class="btn o sm" onclick="newModel()">+ موديل جديد</button>
-  <input id="fp" type="number" placeholder="السعر بالجنيه" value="${e.price}">
+  <div class="mut">الأقسام (اختار واحد أو أكتر، مثلًا iPhone و Samsung مع بعض)</div><div class="mchk" id="fbg">${cats.map(c=>`<label class="mk"><input type="checkbox" value="${c.id}" ${(e.brands||[]).includes(c.id)?"checked":""} onchange="catsChanged()"> ${esc(c.name)}</label>`).join("")||'<span class="mut">أضف قسم الأول من تبويب الأقسام</span>'}</div>
+  <div class="mut">الموديلات (اختار واحد أو أكتر)</div><div class="tool" style="margin:0"><input id="msearch" placeholder="🔍 ابحث عن موديل..." oninput="filterModels()"><button class="btn o sm" onclick="selModels(true)">تحديد المعروض</button><button class="btn o sm" onclick="selModels(false)">إلغاء المعروض</button></div><div id="fmg" class="mchk">${mchecks(e.brands||[],e.models||[])}</div><button class="btn o sm" onclick="newModel()">+ موديل جديد</button>
+  ${editing?`<div class="mut">كود المنتج: <b class="lat" style="color:var(--g2)">${esc((products.find(x=>x.id===editing)||{}).code||"")}</b></div>`:`<div class="mut">كود المنتج بيتعمل تلقائي بعد الإضافة</div>`}<input id="fp" type="number" min="0" placeholder="السعر بالجنيه (سيبه فاضي = السعر على واتساب)" value="${e.price||""}">
   <select id="fs">${Object.entries(ST).map(([k,v])=>`<option value="${k}" ${k===e.status?"selected":""}>${v}</option>`).join("")}</select>
   <input type="file" accept="image/*" onchange="pick(this)"><div id="pv" class="mut">${e.img?`<img src="./${esc(e.img)}" style="width:90px;height:90px;object-fit:cover;border-radius:12px">`:e.imgData?`<img src="${e.imgData}" style="width:90px;height:90px;object-fit:cover;border-radius:12px">`:"بدون صورة"}</div>
-  <div class="acts"><button class="btn" onclick="saveP()">${editing?"تحديث":"إضافة"}</button><button class="btn o" onclick="closeP()">إلغاء</button></div></div></div>`}
+  <div class="acts"><button class="btn" onclick="saveP()">${editing?"تحديث":"إضافة"}</button>${editing?"":`<button class="btn o" onclick="saveP(true)">➕ إضافة وجراب تاني بنفس الأجهزة</button>`}<button class="btn o" onclick="closeP()">إلغاء</button></div></div></div>`}
 /* ---------- الأقسام ---------- */
 function importPreset(){let added=0;PRESET.forEach(p=>{let c=cats.find(x=>x.id===p.id||x.name.toLowerCase()===p.name.toLowerCase());if(!c){c={id:p.id,name:p.name,models:[]};cats.push(c)}const before=c.models.length;c.models=[...p.models,...c.models.filter(m=>!p.models.includes(m))];added+=c.models.length-before});dirty=true;toast("تم استيراد الموديلات ✅ ("+added+" موديل جديد) — لا تنسى تدوس حفظ ونشر");render()}
 function filterModels(){const q=$("#msearch").value.toLowerCase();document.querySelectorAll("#fmg .mk").forEach(l=>l.style.display=l.textContent.toLowerCase().includes(q)?"":"none")}
@@ -141,7 +153,7 @@ function selModels(v){document.querySelectorAll("#fmg .mk").forEach(l=>{if(l.sty
 function addModel(id){const c=catOf(id);$("#nm_"+id).value.split(/[,،\n]/).map(x=>x.trim()).filter(x=>x&&!c.models.includes(x)).forEach(x=>c.models.push(x));dirty=true;render()}
 function delModel(id,i){catOf(id).models.splice(i,1);dirty=true;render()}
 function addCat(){const n=$("#ncat").value.trim();if(!n)return;cats.push({id:"c"+Date.now(),name:n,models:[]});dirty=true;render()}
-function delCat(id){if(products.some(p=>p.brand===id)){toast("في منتجات تابعة للقسم ده، انقلها أو احذفها الأول");return}if(!confirm("حذف القسم؟"))return;cats=cats.filter(c=>c.id!==id);dirty=true;render()}
+function delCat(id){if(products.some(p=>pbr(p).includes(id))){toast("في منتجات تابعة للقسم ده، انقلها أو احذفها الأول");return}if(!confirm("حذف القسم؟"))return;cats=cats.filter(c=>c.id!==id);dirty=true;render()}
 /* ---------- حفظ ---------- */
 async function save(){
   toast("جاري الحفظ...");
@@ -171,10 +183,10 @@ function render(){
     <div class="tool"><input id="oq" placeholder="🔍 ابحث بالاسم أو الموبايل أو الكود" value="${esc(oq)}" oninput="oq=this.value;render()"><button class="btn o" onclick="loadOrders();toast('تم التحديث')">🔄 تحديث</button><button class="btn o" onclick="Notification.requestPermission().then(p=>toast(p==='granted'?'تم تفعيل الإشعارات 🔔':'الإشعارات متقفلة'))">🔔 إشعارات المتصفح</button></div>
     ${list.map(orderCard).join("")||'<div class="empty">لا توجد طلبات هنا</div>'}`:ordersHint()}
   if(view==="products"){title="المنتجات";
-    const list=products.filter(p=>(pc==="all"||p.brand===pc)&&(p.name+pmod(p).join(" ")).toLowerCase().includes(pq.toLowerCase()));
-    body=`<div class="tool"><input id="pq" placeholder="🔍 ابحث في المنتجات" value="${esc(pq)}" oninput="pq=this.value;render()"><select onchange="pc=this.value;render()"><option value="all">كل الأقسام</option>${cats.map(c=>`<option value="${c.id}" ${pc===c.id?"selected":""}>${esc(c.name)}</option>`).join("")}</select><button class="btn" onclick="openP()">+ إضافة جراب</button></div>
-    ${list.map(p=>`<div class="pr">${p.img||p.imgData?`<img class="im" src="${p.imgData||"./"+p.img}" alt="">`:'<div class="im">📱</div>'}<div><b>${esc(p.name)}</b><div class="mut">${esc((catOf(p.brand)||{name:"بدون قسم"}).name)}${pmod(p).length?" • "+esc(pmod(p).join(" / ")):""} — ${p.price} ج.م</div></div>
-    <div class="acts"><select onchange="setSt('${p.id}',this.value)">${Object.entries(ST).map(([k,v])=>`<option value="${k}" ${k===p.status?"selected":""}>${v}</option>`).join("")}</select><button class="btn o sm" onclick="openP('${p.id}')">تعديل</button><button class="btn r sm" onclick="del('${p.id}')">حذف</button></div></div>`).join("")||'<div class="empty">لا توجد منتجات</div>'}`}
+    const list=products.filter(p=>(pc==="all"||pbr(p).includes(pc))&&(p.name+" "+pmod(p).join(" ")+" "+(p.code||"")+" "+(p.code||"").replace("-","")).toLowerCase().includes(pq.trim().toLowerCase()));
+    body=`<div class="tool"><input id="pq" placeholder="🔍 ابحث بالاسم أو الكود" value="${esc(pq)}" oninput="pq=this.value;render()"><select onchange="pc=this.value;render()"><option value="all">كل الأقسام</option>${cats.map(c=>`<option value="${c.id}" ${pc===c.id?"selected":""}>${esc(c.name)}</option>`).join("")}</select><button class="btn" onclick="openP()">+ إضافة جراب</button></div>
+    ${list.map(p=>`<div class="pr">${p.img||p.imgData?`<img class="im" src="${p.imgData||"./"+p.img}" alt="">`:'<div class="im">📱</div>'}<div><b>${esc(p.name)}</b> <span class="mut lat">#${esc(p.code||"")}</span><div class="mut">${esc(pbr(p).map(b=>(catOf(b)||{name:"؟"}).name).join(" + ")||"بدون قسم")}${pmod(p).length?" • "+esc(pmod(p).join(" / ")):""} — ${p.price>0?p.price+" ج.م":"السعر على واتساب"}</div></div>
+    <div class="acts"><select onchange="setSt('${p.id}',this.value)">${Object.entries(ST).map(([k,v])=>`<option value="${k}" ${k===p.status?"selected":""}>${v}</option>`).join("")}</select><button class="btn o sm" onclick="openP('${p.id}')">تعديل</button><button class="btn o sm" onclick="dupP('${p.id}')">📋 نسخ</button><button class="btn r sm" onclick="del('${p.id}')">حذف</button></div></div>`).join("")||'<div class="empty">لا توجد منتجات</div>'}`}
   if(view==="cats"){title="الأقسام والموديلات";
     body=`<div class="pn"><b>📥 الموديلات الجاهزة</b><p class="mut" style="margin:6px 0 10px">بيضيف لكل قسم كل موديلات iPhone وSamsung وOppo (حديثة وقديمة) من غير ما يمسح اللي عندك.</p><button class="btn" onclick="importPreset()">استيراد كل الموديلات</button></div><p class="mut" style="margin-bottom:14px">إنت اللي بتحدد كل قسم فيه أنهي موديلات. اكتب أكتر من موديل بفاصلة بينهم.</p><div class="cg">${cats.map(c=>`<div class="cat"><div style="display:flex;justify-content:space-between;align-items:center"><b>${esc(c.name)}</b><button class="btn r sm" onclick="delCat('${c.id}')">حذف القسم</button></div>
     <div class="chips">${c.models.map((m,i)=>`<span class="mc">${esc(m)} <a onclick="delModel('${c.id}',${i})">×</a></span>`).join("")||'<span class="mut">لا توجد موديلات</span>'}</div>

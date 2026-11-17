@@ -919,9 +919,8 @@
     {
       "id": "p1794653240440",
       "name": "جراب بورش",
-      "price": 100,
+      "price": 0,
       "status": "in",
-      "brand": "samsung",
       "models": [
         "Galaxy A56",
         "Galaxy A37",
@@ -942,7 +941,10 @@
         "Galaxy A08"
       ],
       "img": "images/p1794653240440-1794653385726.jpg",
-      "code": "KV-S3EUC"
+      "code": "KV-S3EUC",
+      "brands": [
+        "samsung"
+      ]
     }
   ]
 }

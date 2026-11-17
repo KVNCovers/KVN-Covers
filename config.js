@@ -1,6 +1,6 @@
 // ===== إعدادات الموقع (الملف ده بيستخدمه الموقع ولوحة الإدارة) =====
 const CONFIG = {
-  REPO: "kvncovers/kvn-covers",   // اسم حسابك/اسم المستودع على GitHub
+  REPO: "KVNCovers/kvn-covers",   // اسم حسابك/اسم المستودع على GitHub
   BRANCH: "main",
   WA: "201210899342",             // رقم الواتساب بالصيغة الدولية
   ORDERS_URL: "https://script.google.com/macros/s/AKfycbwgB6qpWOlC-szW6cbQzi-yxHspd8CQiP64CNwlaCMHIi7LAXc1tFnFhbq96FU5rik/exec",                 // الصق هنا رابط Google Apps Script بعد ما تعمله (شوف الشرح)
